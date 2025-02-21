@@ -35,4 +35,18 @@ RSpec.describe Cell do
             expect(@cell.empty?).to be(false)
         end
     end
+
+    describe "render" do
+        it 'can return a string representation of the cell' do
+            cell_1 = Cell.new("B4")
+
+            cell_1.render
+
+            expect(cell_1.render).to eq(".")
+
+            cell_1.fire_upon
+
+            expect(cell1.render).to eq("M")
+        end
+    end
 end

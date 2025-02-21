@@ -15,4 +15,12 @@ class Cell
     def place_ship(ship)
         @ship = ship 
     end
+
+    def render
+        if @fire == false
+            "."
+        if @fire == true
+            "M"
+        end
+    end
 end
