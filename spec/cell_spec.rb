@@ -1,5 +1,6 @@
 require './lib/ship'
 require './lib/cell'
+require "pry"
 
 RSpec.describe Cell do
     before :each  do
@@ -36,6 +37,7 @@ RSpec.describe Cell do
         end
     end
 
+
     describe "render" do
         it 'can return a string representation of the cell' do
             cell_1 = Cell.new("B4")
@@ -59,5 +61,24 @@ RSpec.describe Cell do
             
 
         end
+    end 
+    describe "what fire_upon does" do
+        it "can fire at a ship" do
+            
+            cruiser = Ship.new("Cruiser", 3)
+           
+            @cell.place_ship(cruiser)
+
+            expect(@cell.fire_upon?).to eq(false)
+
+            @cell.fire_upon
+            
+            expect(@cell.ship.health).to eq(2)
+
+            expect(@cell.fire_upon?).to eq(true)
+        end
+    
+
+
     end
 end
