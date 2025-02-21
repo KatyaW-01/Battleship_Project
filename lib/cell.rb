@@ -16,7 +16,7 @@ class Cell
         @ship = ship 
     end
 
-    def render
+    def render(show_ship = false)
         if @fire == false
             "."
         if @fire == true
