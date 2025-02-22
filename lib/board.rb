@@ -23,9 +23,16 @@ class Board
     def valid_coordinate?(coordinate)
         @cells.keys.map.any? do |key|
             coordinate == key
-
-        
        end
-
     end
+
+    def valid_placement?(ship,coordinates)
+        if ship.length == coordinates.length && coordinates 
+            true
+        else
+            false
+        end
+    end
+
+
 end
