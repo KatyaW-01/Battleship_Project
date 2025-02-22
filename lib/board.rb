@@ -27,12 +27,16 @@ class Board
     end
 
     def valid_placement?(ship,coordinates)
-        if ship.length == coordinates.length && coordinates 
+        if ship.length == coordinates.length && coordinates.map {|cell| cell.empty? == true} &&
+        binding.pry
+        coordinates.each_cons(2) {|coordinate| p coordinate}
             true
         else
             false
         end
     end
+
+    
 
 
 end
