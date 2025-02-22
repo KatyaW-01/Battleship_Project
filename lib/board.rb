@@ -27,10 +27,41 @@ class Board
     end
 
     def valid_placement?(ship,coordinates)
-        if ship.length == coordinates.length && coordinates.map {|cell| cell.empty? == true} &&
-        binding.pry
-        coordinates.each_cons(2) {|coordinate| p coordinate}
+        if ship.length == coordinates.length && 
+            coordinates.map {|cell| cell.empty? == true} && 
+            consecutive_coordinates(coordinates)
             true
+        else
+            false
+        end
+    end
+
+    def consecutive_coordinates(coordinates)
+        rows = []
+        columns = []
+        coordinates.each do |coordinate|
+            rows << coordinate[0]
+            columns << coordinate[1]
+
+        end
+        if rows.uniq.length == 1
+            return_value = true
+            columns.each_cons(2) do |current_column, next_column|
+                if next_column.to_i - current_column.to_i != 1
+                    return_value = false
+                end
+            end
+            return_value
+
+        elsif columns.uniq.length == 1
+            return_value = true
+            rows.each_cons(2) do |current_row, next_row|
+                if next_row.ord - current_row.ord != 1
+                    return_value = false
+                end
+            end
+            return_value
+
         else
             false
         end
