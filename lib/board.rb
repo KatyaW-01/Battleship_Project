@@ -27,13 +27,22 @@ class Board
     end
 
     def valid_placement?(ship,coordinates)
-        if ship.length == coordinates.length && 
-            coordinates.map {|cell| cell.empty? == true} && 
-            consecutive_coordinates(coordinates)
+        if ship.length == coordinates.length && consecutive_coordinates(coordinates) && cell_empty(coordinates)
             true
         else
             false
         end
+    end
+
+    def cell_empty(coordinates)
+        return_value = true
+        coordinates.each do |coordinate|
+            if @cells[coordinate].empty? == false
+                return false
+            end
+        end
+        return_value
+        
     end
 
     def consecutive_coordinates(coordinates)
@@ -42,7 +51,7 @@ class Board
         coordinates.each do |coordinate|
             rows << coordinate[0]
             columns << coordinate[1]
-
+        
         end
         if rows.uniq.length == 1
             return_value = true
