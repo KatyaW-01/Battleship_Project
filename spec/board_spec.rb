@@ -15,8 +15,6 @@ RSpec.describe Board do
     describe "the cells board has" do
         it "has cell objects" do
             expect(@board.cells).to be_a(Hash)
-        end
-        it "" do
             expect(@board.cells.keys.length).to eq(16)
         end
     end
@@ -74,8 +72,9 @@ RSpec.describe Board do
         it 'can make sure there are no overlapping ships' do
             cruiser = Ship.new("Cruiser", 3)
 
-            @board.place(cruiser, ["A1", "A2", "A3"])
             expect(@board.valid_placement?(cruiser, ["A1", "A2", "A3"])).to be(true)
+            @board.place(cruiser, ["A1", "A2", "A3"])
+           
 
             submarine = Ship.new("Submarine", 2)
 

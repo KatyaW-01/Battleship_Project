@@ -35,15 +35,11 @@ class Board
     end
 
     def cell_empty(coordinates)
-        return_value = false
-        
+        return_value = true
         coordinates.each do |coordinate|
-           
-            if @cells[coordinate].empty? == true
-                return_value = true
-           
+            if @cells[coordinate].empty? == false
+                return false
             end
-        #binding.pry
         end
         return_value
         
