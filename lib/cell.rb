@@ -35,7 +35,7 @@ class Cell
     end
 
     def render(show_ship = false)
-        if show_ship == true
+        if show_ship == true && empty? == false
             "S"
         elsif @fire == false
             "."

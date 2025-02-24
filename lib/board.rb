@@ -85,8 +85,15 @@ class Board
         end
         
     end
-
-    
-
-
+    def render(show_ships = false)
+        header = "  1 2 3 4 \n"
+        rows = ("A".."D").map do |row|
+          row_cells = (1..4).map do |column|
+           
+            @cells["#{row}#{column}"].render(show_ships)
+          end
+          "#{row} #{row_cells.join(" ")} \n"
+        end
+        header + rows.join
+      end
 end
