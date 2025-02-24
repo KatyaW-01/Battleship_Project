@@ -87,7 +87,50 @@ class Game
     end
 
     def take_turns
+        puts "=====COMPUTER BOARD====="
+        puts @computer_board.render
+        puts "=====PLAYER BOARD====="
+        puts @player_board.render(true)
+        puts "Enter a coordinate to fire upon:"
+        user_coordinate = gets.chomp
+        valid_coordinate = @computer_board.valid_coordinate?(user_coordinate)
+        while valid_coordinate == false
+            puts "Invalid coordinate. Please try again."
+            user_coordinate = gets.chomp
+            valid_coordinate = @computer_board.valid_coordinate?(user_coordinate)
+        end
+        @computer_board.cells[user_coordinate].fire_upon
 
+        if @computer_board.cells[user_coordinate].empty? == true
+            puts "Your shot on #{user_coordinate} was a miss."
+        elsif @computer_board.cells[user_coordinate].empty? == false && @computer_board.cells[user_coordinate].ship.sunk? == false
+            puts "Your shot on #{user_coordinate} was a hit."
+        elsif @computer_board.cells[user_coordinate].empty? == false && @computer_board.cells[user_coordinate].ship.sunk? == true
+            puts "Your shot on #{user_coordinate} sunk a ship!"
+        end
+
+        puts @computer_board.render
+        #computers turn
+        array_of_coordinates = @player_board.cells.keys
+        computer_coordinate = array_of_coordinates.sample
+        while @player_board.cells[computer_coordinate].fire_upon? == false
+            computer_coordinate = array_of_coordinates.sample
+        end
+        @player_board.cells[computer_coordinate].fire_upon
+
+        if @player_board.cells[computer_coordinate].empty? == true
+            puts "My shot on #{computer_coordinate} was a miss."
+        elsif @player_board.cells[computer_coordinate].empty? == false && @player_board.cells[computer_coordinate].ship.sunk? == false
+            puts "My shot on #{computer_coordinate} was a hit."
+        elsif @player_board.cells[computer_coordinate].empty? == false && @player_board.cells[computer_coordinate].ship.sunk? == true
+            puts "My shot on #{computer_coordinate} sunk a ship!"
+        end
+
+
+        @player_board.render(true)
+
+
+       
     end
 
     def end_game
