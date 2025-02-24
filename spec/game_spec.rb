@@ -20,6 +20,6 @@ RSpec.describe Game do
         end
     end
     describe "setup" do
-        
+       
     end
 end
