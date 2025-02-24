@@ -86,7 +86,7 @@ class Game
             valid_placement = @computer_board.valid_placement?(@computer_cruiser,cruiser_coordinates)
         end
         @computer_board.place(@computer_cruiser,cruiser_coordinates)
-        #puts @computer_board.render(true)
+        puts @computer_board.render(true)
         
         submarine_coordinates = array_of_coordinates.sample(2)
         valid_placement = @computer_board.valid_placement?(@computer_submarine,submarine_coordinates)
@@ -95,14 +95,14 @@ class Game
             valid_placement = @computer_board.valid_placement?(@computer_submarine,submarine_coordinates)
         end
         @computer_board.place(@computer_submarine,submarine_coordinates)
-        #puts @computer_board.render(true)
+        puts @computer_board.render(true)
 
         puts "I have laid out my ships on the grid.\nYou now need to lay out your two ships."
 
     end
 
     def take_turns
-        while @computer_cruiser.sunk? == false && @computer_submarine.sunk? == false || @player_cruiser.sunk? == false && @player_submarine.sunk? == false
+        while (@computer_cruiser.sunk? == false && @computer_submarine.sunk? == false) || (@player_cruiser.sunk? == false && @player_submarine.sunk? == false)
             #player's turn
             puts "=====COMPUTER BOARD====="
             puts @computer_board.render
@@ -127,6 +127,9 @@ class Game
             end
 
             puts @computer_board.render
+            if @computer_cruiser.sunk? == true && @computer_submarine.sunk? == true
+                break
+            end
             #computer's turn
             array_of_coordinates = @player_board.cells.keys
             computer_coordinate = array_of_coordinates.sample
@@ -145,6 +148,9 @@ class Game
 
 
             @player_board.render(true)
+            if @player_cruiser.sunk? == true && @player_submarine.sunk? == true
+                break
+            end
         end
 
 
