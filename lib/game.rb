@@ -49,7 +49,7 @@ class Game
         while valid_placement == false
             puts "Invalid coordinates. Please try again."
             user_submarine_coordinates = gets.chomp
-            valid_placement = @board.valid_placement?(submarine,user_submarine_coordinates.split(" "))
+            valid_placement = @player_board.valid_placement?(submarine,user_submarine_coordinates.split(" "))
         end
         
         @player_board.place(submarine,user_submarine_coordinates.split(" "))
