@@ -25,17 +25,35 @@ class Game
         puts "Enter the coordinates you would like to place your Cruiser (3 spaces):"
         user_cruiser_coordinates = gets.chomp
         
-        cruiser = Ship.new("Cruiser",3)
+        cruiser = Ship.new("Cruiser", 3)
         valid_placement = @board.valid_placement?(cruiser,user_cruiser_coordinates.split(" "))
         #binding.pry
-        if valid_placement == false
+        while valid_placement == false
             puts "Invalid coordinates. Please try again."
-        else
-            @board.place(cruiser,user_cruiser_coordinates.split(" "))
+            user_cruiser_coordinates = gets.chomp
+            valid_placement = @board.valid_placement?(cruiser,user_cruiser_coordinates.split(" "))
         end
+        
+        @board.place(cruiser,user_cruiser_coordinates.split(" "))
+        
         puts @board.render(true)
 
-        puts
+        puts "Enter the coordinates you would like to place your Submarine (2 spaces):"
+
+        submarine = Ship.new("Submarine", 2)
+        user_submarine_coordinates = gets.chomp
+
+        valid_placement = @board.valid_placement?(submarine,user_submarine_coordinates.split(" "))
+
+        while valid_placement == false
+            puts "Invalid coordinates. Please try again."
+            user_submarine_coordinates = gets.chomp
+            valid_placement = @board.valid_placement?(submarine,user_submarine_coordinates.split(" "))
+        end
+        
+        @board.place(submarine,user_submarine_coordinates.split(" "))
+        
+        puts @board.render(true)
         
     end
 
