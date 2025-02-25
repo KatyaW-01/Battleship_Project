@@ -1,5 +1,4 @@
 class Game
-    attr_reader :board
     def initialize
         @computer_board = Board.new
         @player_board = Board.new
@@ -34,7 +33,7 @@ class Game
             valid_placement = @computer_board.valid_placement?(@computer_cruiser,cruiser_coordinates)
         end
         @computer_board.place(@computer_cruiser,cruiser_coordinates)
-        puts @computer_board.render(true)
+        #puts @computer_board.render(true)
         
         submarine_coordinates = array_of_coordinates.sample(2)
         valid_placement = @computer_board.valid_placement?(@computer_submarine,submarine_coordinates)
@@ -43,7 +42,7 @@ class Game
             valid_placement = @computer_board.valid_placement?(@computer_submarine,submarine_coordinates)
         end
         @computer_board.place(@computer_submarine,submarine_coordinates)
-        puts @computer_board.render(true)
+        #puts @computer_board.render(true)
 
         puts "I have laid out my ships on the grid.\nYou now need to lay out your two ships."
 
@@ -115,13 +114,25 @@ class Game
 
             puts "Enter a coordinate to fire upon:"
             user_coordinate = gets.chomp
-           
+
             valid_coordinate = @computer_board.valid_coordinate?(user_coordinate)
             while valid_coordinate == false
                 puts "Invalid coordinate. Please try again."
                 user_coordinate = gets.chomp
                 valid_coordinate = @computer_board.valid_coordinate?(user_coordinate)
             end
+
+            while @computer_board.cells[user_coordinate].fire_upon? == true
+                puts "You have already fired on this coordinate. Please choose another one."
+                user_coordinate = gets.chomp
+                valid_coordinate = @computer_board.valid_coordinate?(user_coordinate)
+                while valid_coordinate == false
+                    puts "Invalid coordinate. Please try again."
+                    user_coordinate = gets.chomp
+                    valid_coordinate = @computer_board.valid_coordinate?(user_coordinate)
+                end
+            end
+            
             @computer_board.cells[user_coordinate].fire_upon
 
             if @computer_board.cells[user_coordinate].empty? == true

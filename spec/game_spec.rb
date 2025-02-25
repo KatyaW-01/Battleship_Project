@@ -7,7 +7,7 @@ require "pry"
 RSpec.describe Game do
     before(:each) do
         @game = Game.new
-        #binding.pry
+        
     end
     describe "Class" do
         it "exists" do
@@ -19,7 +19,5 @@ RSpec.describe Game do
             expect(@game.welcome_message).to eq("Welcome to BATTLESHIP\nEnter p to play. Enter q to quit.")
         end
     end
-    describe "setup" do
-       
-    end
+    
 end
