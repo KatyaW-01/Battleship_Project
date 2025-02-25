@@ -27,14 +27,14 @@ class Board
     end
 
     def valid_placement?(ship,coordinates)
-        if ship.length == coordinates.length && consecutive_coordinates(coordinates) && cell_empty(coordinates)
+        if ship.length == coordinates.length  && consecutive_coordinates(coordinates) && cell_empty(coordinates)
             true
         else
             false
         end
     end
 
-    def cell_empty(coordinates)
+    def cell_empty(coordinates) #error occurring in this method
         return_value = true
         coordinates.each do |coordinate|
             if @cells[coordinate].empty? == false

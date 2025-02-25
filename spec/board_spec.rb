@@ -11,6 +11,7 @@ RSpec.describe Board do
         it "exist" do
             expect(@board).to be_a(Board)
         end
+       
     end
     describe "the cells board has" do
         it "has cell objects" do
