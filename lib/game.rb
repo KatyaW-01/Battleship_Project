@@ -20,6 +20,7 @@ class Game
             player_setup
         elsif user_input == "q"
             puts "Goodbye!"
+            exit
         end
     end
 
