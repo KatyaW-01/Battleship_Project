@@ -18,62 +18,10 @@ class Game
         
         if user_input == "p"
             computer_setup
-            #player_setup
+            player_setup
         elsif user_input == "q"
             puts "Goodbye!"
         end
-    end
-
-    def player_setup
-        explanation = "You have two ships, a Cruiser and Submarine.\nA Cruiser is three units long and the Submarine is two units long.\nYou need to place your ships."
-        puts explanation
-        puts @player_board.render
-        puts "Enter the coordinates you would like to place your Cruiser (3 spaces):"
-        user_cruiser_coordinates = gets.chomp
-        
-        coordinates_array = user_cruiser_coordinates.split(" ")
-        while @player_board.valid_coordinate?(coordinates_array[0]) == false || @player_board.valid_coordinate?(coordinates_array[1]) == false || @player_board.valid_coordinate?(coordinates_array[2]) == false
-            puts "Invalid coordinates. Please try again."
-            user_cruiser_coordinates = gets.chomp
-            coordinates_array = user_cruiser_coordinates.split(" ")
-        end
-
-        valid_placement = @player_board.valid_placement?(@player_cruiser,user_cruiser_coordinates.split(" "))
-    
-        while valid_placement == false
-            puts "Invalid coordinates. Please try again."
-            user_cruiser_coordinates = gets.chomp
-            valid_placement = @player_board.valid_placement?(@player_cruiser,user_cruiser_coordinates.split(" "))
-        end
-       
-        
-        @player_board.place(@player_cruiser,user_cruiser_coordinates.split(" "))
-        
-        puts @player_board.render(true)
-
-        puts "Enter the coordinates you would like to place your Submarine (2 spaces):"
-
-        user_submarine_coordinates = gets.chomp
-        sub_coordinates_array = user_submarine_coordinates.split(" ")
-
-        while @player_board.valid_coordinate?(sub_coordinates_array[0]) == false || @player_board.valid_coordinate?(sub_coordinates_array[1]) == false 
-            puts "Invalid coordinates. Please try again."
-            user_submarine_coordinates = gets.chomp
-            sub_coordinates_array = user_submarine_coordinates.split(" ")
-        end
-
-        valid_placement = @player_board.valid_placement?(@player_submarine,user_submarine_coordinates.split(" "))
-
-        while valid_placement == false
-            puts "Invalid coordinates. Please try again."
-            user_submarine_coordinates = gets.chomp
-            valid_placement = @player_board.valid_placement?(@player_submarine,user_submarine_coordinates.split(" "))
-        end
-        
-        @player_board.place(@player_submarine,user_submarine_coordinates.split(" "))
-        
-        puts @player_board.render(true)
-        
     end
 
     def computer_setup
@@ -101,15 +49,73 @@ class Game
 
     end
 
+    def player_setup
+        explanation = "The Cruiser is three units long and the Submarine is two units long."
+        puts explanation
+        puts @player_board.render
+        #place cruiser
+        puts "Enter the coordinates you would like to place your Cruiser (3 spaces):"
+        user_cruiser_coordinates = gets.chomp
+        #first check if coordinates are valid
+        coordinates_array = user_cruiser_coordinates.split(" ")
+        while @player_board.valid_coordinate?(coordinates_array[0]) == false || @player_board.valid_coordinate?(coordinates_array[1]) == false || @player_board.valid_coordinate?(coordinates_array[2]) == false
+            puts "Invalid coordinates. Please try again."
+            user_cruiser_coordinates = gets.chomp
+            coordinates_array = user_cruiser_coordinates.split(" ")
+        end
+        #if coordinates are valid, check if placement is valid
+        valid_placement = @player_board.valid_placement?(@player_cruiser,user_cruiser_coordinates.split(" "))
+    
+        while valid_placement == false
+            puts "Invalid coordinates. Please try again."
+            user_cruiser_coordinates = gets.chomp
+            valid_placement = @player_board.valid_placement?(@player_cruiser,user_cruiser_coordinates.split(" "))
+        end
+       
+       #if both coordinates and placement are valid, place the cruiser 
+        @player_board.place(@player_cruiser,user_cruiser_coordinates.split(" "))
+        
+        puts @player_board.render(true)
+
+        puts "Enter the coordinates you would like to place your Submarine (2 spaces):"
+        #place submarine
+        user_submarine_coordinates = gets.chomp
+        sub_coordinates_array = user_submarine_coordinates.split(" ")
+        #first check if coordinates are valid
+        while @player_board.valid_coordinate?(sub_coordinates_array[0]) == false || @player_board.valid_coordinate?(sub_coordinates_array[1]) == false 
+            puts "Invalid coordinates. Please try again."
+            user_submarine_coordinates = gets.chomp
+            sub_coordinates_array = user_submarine_coordinates.split(" ")
+        end
+        #if coordinates are valid, check if placement is valid
+        valid_placement = @player_board.valid_placement?(@player_submarine,user_submarine_coordinates.split(" "))
+
+        while valid_placement == false
+            puts "Invalid coordinates. Please try again."
+            user_submarine_coordinates = gets.chomp
+            valid_placement = @player_board.valid_placement?(@player_submarine,user_submarine_coordinates.split(" "))
+        end
+        #if both coordinates and placement are valid, place the submarine 
+        @player_board.place(@player_submarine,user_submarine_coordinates.split(" "))
+        
+        #display player's board with both cruiser and submarine placement
+        puts @player_board.render(true)
+        
+    end
+
+
     def take_turns
-        while (@computer_cruiser.sunk? == false && @computer_submarine.sunk? == false) || (@player_cruiser.sunk? == false && @player_submarine.sunk? == false)
+        until (@computer_cruiser.sunk? == true && @computer_submarine.sunk? == true) || (@player_cruiser.sunk? == true && @player_submarine.sunk? == true)
+
             #player's turn
             puts "=====COMPUTER BOARD====="
             puts @computer_board.render
             puts "=====PLAYER BOARD====="
             puts @player_board.render(true)
+
             puts "Enter a coordinate to fire upon:"
             user_coordinate = gets.chomp
+           
             valid_coordinate = @computer_board.valid_coordinate?(user_coordinate)
             while valid_coordinate == false
                 puts "Invalid coordinate. Please try again."
@@ -130,6 +136,7 @@ class Game
             if @computer_cruiser.sunk? == true && @computer_submarine.sunk? == true
                 break
             end
+
             #computer's turn
             array_of_coordinates = @player_board.cells.keys
             computer_coordinate = array_of_coordinates.sample
@@ -146,18 +153,22 @@ class Game
                 puts "My shot on #{computer_coordinate} sunk a ship!"
             end
 
-
             @player_board.render(true)
+
             if @player_cruiser.sunk? == true && @player_submarine.sunk? == true
                 break
             end
-        end
-
-
-       
+        end  
     end
 
+
+
     def end_game
+        if @player_cruiser.sunk? == true && @player_submarine.sunk? == true
+            puts "I won!"
+        else
+            puts "You won!"
+        end
 
     end
 end
