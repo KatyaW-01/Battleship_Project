@@ -1,4 +1,4 @@
-1. We started by looking at everything the game required for functionality and broke it down into different chuncks and made an empty method for each chunck. We then worked on one method at a time and built out the functionality for that specific method.
-2. If we had one more day to work on the project, we would have worked on parts of iteration four.
+1. We started by looking at everything the game required for functionality and broke it down into different chuncks and made an empty method for each chunck. We then worked on one method at a time and built out the functionality for that specific method. This allowed us to be organized and see the big picture while also being able to work on one piece at a time.
+2. If we had one more day to work on the project, we would have worked on parts of iteration four. After finishing iteration three, we felt our time was better spent doing more ruby exercises and practice problems but it would have been interesting to have built out more functionality to our game.
 3. We used driver/navigator as well as one person sharing their screen and both discussing how to write the code/solve problems.
-4. Feedback was shared mostly through huddles or through messages on slack.
+4. Feedback was shared mostly through huddles or through messages on slack. Most of the project was done while on a video call with each other so we were able to give feedback as code was being written and make changes immediately. 
