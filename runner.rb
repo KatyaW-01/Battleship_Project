@@ -11,5 +11,4 @@ loop do
     puts battleship.take_turns
     puts battleship.end_game
     
-    
 end

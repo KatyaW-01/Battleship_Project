@@ -113,9 +113,10 @@ class Game
             puts "=====PLAYER BOARD====="
             puts @player_board.render(true)
 
+            puts ''
             puts "Enter a coordinate to fire upon:"
             user_coordinate = gets.chomp
-
+            puts ''
             valid_coordinate = @computer_board.valid_coordinate?(user_coordinate)
             while valid_coordinate == false
                 puts "Invalid coordinate. Please try again."
@@ -144,11 +145,19 @@ class Game
                 puts "Your shot on #{user_coordinate} sunk a ship!"
             end
 
+            puts ''
             puts @computer_board.render
+            puts ''
+            puts ''
             if @computer_cruiser.sunk? == true && @computer_submarine.sunk? == true
                 break
             end
-
+            sleep(1)
+            print "."
+            sleep(1)
+            print "."
+            sleep(1)
+            print ".\n"
             #computer's turn
             array_of_coordinates = @player_board.cells.keys
             computer_coordinate = array_of_coordinates.sample
@@ -164,7 +173,8 @@ class Game
             elsif @player_board.cells[computer_coordinate].empty? == false && @player_board.cells[computer_coordinate].ship.sunk? == true
                 puts "My shot on #{computer_coordinate} sunk a ship!"
             end
-
+            sleep(2)
+            puts ''
             @player_board.render(true)
 
             if @player_cruiser.sunk? == true && @player_submarine.sunk? == true
@@ -181,7 +191,6 @@ class Game
         else
             puts "You won!"
         end
-
     end
 end
 
